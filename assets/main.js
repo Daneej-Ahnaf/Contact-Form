@@ -7,15 +7,10 @@ const message = document.querySelector('#message');
 const ContactUs = document.querySelector('#contactBtn');
 const modal = document.querySelector('#modal');
 
-
-
 ContactUs.addEventListener('click', () => {
     modal.style.display = 'block';
     ContactUs.style.display = 'none';
 });
-
-
-
 
 window.addEventListener('click', (event) => {
     if (event.target === modal) {
@@ -24,14 +19,10 @@ window.addEventListener('click', (event) => {
     }
 });
 
-
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     validateInputs();
 });
-
-
 
 function validateInputs() {
     const usernameVal = username.value.trim();
@@ -85,13 +76,12 @@ function validateInputs() {
 
     if (isValid) {
         saveFormData(usernameVal, addressVal, pNumberVal, emailVal, msgVal);
+        alert('Contact information submitted successfully!');
         form.reset();
         modal.style.display = 'none';
         ContactUs.style.display = 'block';
     }
 }
-
-
 
 function setError(element, message) {
     const inputGroup = element.parentElement;
@@ -102,8 +92,6 @@ function setError(element, message) {
     inputGroup.classList.remove('success');
 }
 
-
-
 function setSuccess(element) {
     const inputGroup = element.parentElement;
     const errorElement = inputGroup.querySelector('.error');
@@ -113,8 +101,6 @@ function setSuccess(element) {
     inputGroup.classList.remove('error');
 }
 
-
-
 const validateEmail = (email) => {
     return String(email)
         .toLowerCase()
@@ -122,8 +108,6 @@ const validateEmail = (email) => {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
-
-
 
 function saveFormData(username, address, phone, email, message) {
     const formData = {
