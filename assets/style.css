@@ -1,0 +1,91 @@
+body{
+
+    background: url(./software-developer.jpg)no-repeat center center fixed;
+    background-size: cover;
+    
+}
+
+#form{
+
+    width:350px;
+    margin:20vh auto 20vh auto;
+    background-color:hsla(0, 33%, 92%, 0.514);
+    padding: 30px;
+    border-radius:10px;
+    display: none;
+}
+
+#form h1{
+
+    text-align: center;
+    font-size: 30px;
+    color: rgba(132, 60, 137, 0.851);
+}
+
+#form button{
+
+   background-color:rgba(132, 60, 137, 0.851);
+   color: white;
+   font-size: 14px;
+   padding: 15px;
+   margin: 30px auto 10px auto;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   width: 40%;
+   display: block;
+}
+
+#form button:hover{
+
+    background-color:rgba(94, 53, 97, 0.851);
+    
+ }
+.input-group{
+    display: flex;
+    flex-direction:column;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.input-group input,textarea{
+    margin-top: 5px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(132, 60, 137, 0.851) ;
+    
+}
+
+.input-group input,textarea:focus{
+  
+    outline: none;
+}
+
+
+
+
+/* styling of error message*/
+.input-group .error{
+    color: red;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+
+/* here we are adding .error and .success classes from javascript */
+.input-group.error input{
+    border: 2px solid red ;
+}
+
+.input-group.error textarea{
+    border: 2px solid red ;
+}
+
+.input-group.success input{
+    border: 2px solid rgb(62, 175, 62) ;
+}
+
+.input-group.success textarea{
+    border: 2px solid rgb(62, 175, 62) ;
+}
