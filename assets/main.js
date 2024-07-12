@@ -1,122 +1,137 @@
-// gettimg the values
-
-
-const form = document.querySelector('#form')
+const form = document.querySelector('#form');
 const username = document.querySelector('#username');
 const address = document.querySelector('#address');
 const pNumber = document.querySelector('#pNumber');
 const email = document.querySelector('#email');
-const message=document.querySelector('#message');
+const message = document.querySelector('#message');
+const ContactUs = document.querySelector('#contactBtn');
+const modal = document.querySelector('#modal');
 
 
 
-// form submit event
-
-form.addEventListener('submit', (e)=>{
-                  
-    e.preventDefault();
-    validateInputs();
-
-
-
+ContactUs.addEventListener('click', () => {
+    modal.style.display = 'block';
+    ContactUs.style.display = 'none';
 });
 
 
-function validateInputs(){
 
-//  trimming the values
-// trim() - it will clear the unwanted spaces
 
-    const usernameVal = username.value.trim()
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        ContactUs.style.display = 'block';
+    }
+});
+
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    validateInputs();
+});
+
+
+
+function validateInputs() {
+    const usernameVal = username.value.trim();
     const addressVal = address.value.trim();
-    const pNumberVal = pNumber.value.trim(); 
+    const pNumberVal = pNumber.value.trim();
     const emailVal = email.value.trim();
     const msgVal = message.value.trim();
-   
 
-    if(usernameVal===''){
+    let isValid = true;
 
-         setError(username,'User name is required');
-    }
-    else{
+    if (usernameVal === '') {
+        setError(username, 'User name is required');
+        isValid = false;
+    } else {
         setSuccess(username);
     }
 
-
-    if(emailVal===''){
-        setError(email,'Email is required');
-    }
-    else if(!validateEmail(emailVal)){
-       
-        setError(email,'Please enter a valid email');
-    }
-    else{
+    if (emailVal === '') {
+        setError(email, 'Email is required');
+        isValid = false;
+    } else if (!validateEmail(emailVal)) {
+        setError(email, 'Please enter a valid email');
+        isValid = false;
+    } else {
         setSuccess(email);
     }
 
-
-    if(addressVal===''){
-        setError(address,'Address is required');
-    }
-    else if(addressVal.length<5){
-        setError(address,'Please provide a more detailed address.');
-    }
-    else{
+    if (addressVal === '') {
+        setError(address, 'Address is required');
+        isValid = false;
+    } else if (addressVal.length < 5) {
+        setError(address, 'Please provide a more detailed address.');
+        isValid = false;
+    } else {
         setSuccess(address);
     }
 
-
-    if(pNumberVal===''){
-        setError(pNumber,'Phone number is required');
-    }
-   
-    else{
+    if (pNumberVal === '') {
+        setError(pNumber, 'Phone number is required');
+        isValid = false;
+    } else {
         setSuccess(pNumber);
     }
 
-
-    if(msgVal===''){
-        setError(message,'Message is required');
-    }
-    else{
+    if (msgVal === '') {
+        setError(message, 'Message is required');
+        isValid = false;
+    } else {
         setSuccess(message);
     }
+
+    if (isValid) {
+        saveFormData(usernameVal, addressVal, pNumberVal, emailVal, msgVal);
+        form.reset();
+        modal.style.display = 'none';
+        ContactUs.style.display = 'block';
+    }
 }
 
 
 
-function setError(element,message){
+function setError(element, message) {
+    const inputGroup = element.parentElement;
+    const errorElement = inputGroup.querySelector('.error');
 
-
-const inputGroup=element.parentElement;
-const errorElement = inputGroup.querySelector('.error')
-
-errorElement.innerText = message;
-
-inputGroup.classList.add('error');
-inputGroup.classList.remove('success');
-
-
+    errorElement.innerText = message;
+    inputGroup.classList.add('error');
+    inputGroup.classList.remove('success');
 }
 
-function setSuccess(element){
 
 
-    const inputGroup=element.parentElement;
-    const errorElement = inputGroup.querySelector('.error')
-    
-    errorElement.innerText ='';
-    
+function setSuccess(element) {
+    const inputGroup = element.parentElement;
+    const errorElement = inputGroup.querySelector('.error');
+
+    errorElement.innerText = '';
     inputGroup.classList.add('success');
     inputGroup.classList.remove('error');
-    
-    
-    }
+}
 
-    const validateEmail = (email) => {
-        return String(email)
-          .toLowerCase()
-          .match(
+
+
+const validateEmail = (email) => {
+    return String(email)
+        .toLowerCase()
+        .match(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          );
-      };
+        );
+};
+
+
+
+function saveFormData(username, address, phone, email, message) {
+    const formData = {
+        username,
+        address,
+        phone,
+        email,
+        message
+    };
+    localStorage.setItem('contactFormData', JSON.stringify(formData));
+}
