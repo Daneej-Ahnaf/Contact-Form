@@ -60,19 +60,33 @@ function validateInputs() {
         setSuccess(address);
     }
 
+    const phoneRegex = /^\+94\d{9}$/;
     if (pNumberVal === '') {
         setError(pNumber, 'Phone number is required');
         isValid = false;
-    } else {
+    }
+    else if(isNaN(pNumberVal)){
+        setError(pNumber, 'Enter a valid phone number');
+        isValid = false;
+    } 
+    else if(!phoneRegex.test(pNumberVal)){
+        setError(pNumber, 'Please enter a valid phone number starting with +94 and followed by 9 digits');
+        isValid = false;
+    }
+    else {
         setSuccess(pNumber);
     }
+
 
     if (msgVal === '') {
         setError(message, 'Message is required');
         isValid = false;
-    } else {
+    }
+    else {
         setSuccess(message);
     }
+
+
 
     if (isValid) {
         saveFormData(usernameVal, addressVal, pNumberVal, emailVal, msgVal);
@@ -108,6 +122,11 @@ const validateEmail = (email) => {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 };
+
+
+const validateNumber =
+
+
 
 function saveFormData(username, address, phone, email, message) {
     const formData = {
