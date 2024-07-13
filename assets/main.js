@@ -124,8 +124,6 @@ const validateEmail = (email) => {
 };
 
 
-const validateNumber =
-
 
 
 function saveFormData(username, address, phone, email, message) {
